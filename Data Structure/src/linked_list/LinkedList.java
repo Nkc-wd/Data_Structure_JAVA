@@ -7,6 +7,10 @@ public class LinkedList {
 		Node next;             //link Address or reference as next of Node class
 	}
 
+	// next is a pointer to the next node
+	// next is by default initialized  as null
+ 
+	
 	private Node head;  // link address head
 	private Node tail; // link address tail
 	private int size;  // size
@@ -41,16 +45,17 @@ public class LinkedList {
 			// attachment
 			if (this.size >= 1) {
 				nn.next = head;      // Only attach data when size => to 1 
+				                     // such that head's next will point to the newly added node.
 			}
                                                               // addFirst Method
 			// summary object update
 			if (this.size == 0) {
-				this.head = nn;      // if size is 0 then current head and tail need assign nn
+				this.head = nn;      // If the list is empty, both head and tail will point to the newly added node(nn).
 				this.tail = nn;
 				this.size++;          // and size need to increment
 			} else {
-				this.head = nn;       // if size is greater than 
-				this.size++;
+				this.head = nn;        // If the list is not empty, the new node will be added to head of the list
+				this.size++;           // such that head's next will point to the newly added node.
 			}
 
 		}
@@ -64,17 +69,19 @@ public class LinkedList {
 			nn.next = null;
 
 			// attach
-			if (this.size >= 1) {     // Only attach data when size => to 1 
-				this.tail.next = nn;
-			}                                              //addLast
+			if (this.size >= 1) {      // Only attach data when size => to 1 
+				this.tail.next = nn;  // such that tail's next will point to the newly added node.
+			}                                             
+			                                                   //addLast
 
 			// summary object
 			if (this.size == 0) {
-				this.head = nn;          // if size is 0 then current head and tail need assign nn
+				this.head = nn;           // If the list is empty, both head and tail will point to the newly added node(nn).
 				this.tail = nn;
 				this.size++;
 			} else {
-				this.tail = nn;         // if size is greater than
+				this.tail = nn;         // If the list is not empty, the new node will be added to end of the list 
+				                       // such that tail's next will point to the newly added node.
 				this.size++;
 			}
 		}
