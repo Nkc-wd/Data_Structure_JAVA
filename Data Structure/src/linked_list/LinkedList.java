@@ -272,5 +272,14 @@ public class LinkedList {
 
 		}
 	}
+	
+	public int size() {
+		return this.size;
+	}
+	
+	public int mid() throws Exception {
+		int mid=(this.size-1)/2;
+		return getAt(mid);
+	}
 
 }

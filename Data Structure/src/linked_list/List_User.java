@@ -20,12 +20,18 @@ public class List_User {
 		list.display();
 		list.addLast(200);
 		list.addLast(300);
+		
 		list.display();
 		 System.out.println(list.removeAt(3));
 		list.display();
 
 		list.reverseData();
 		list.display();
+		System.out.println("=========");
+		System.out.println(list.size());
+		System.out.println("=========");
+		System.out.println(list.mid());
+		
 
 	}
 
