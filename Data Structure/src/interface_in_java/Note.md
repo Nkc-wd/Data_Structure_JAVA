@@ -19,8 +19,11 @@ It also take care of return type of method that is written in interface.
 **Important**
 
 we can not initialize interface class as new class
+
 xxxxxxxxxxxxxxxxxxxxxxxx
+
 One one=new One();
+
 xxxxxxxxxxxxxxxxxxxxxxx
 
 
@@ -37,7 +40,7 @@ Variables of interface can be call by
       //........
       }
  
-** interface implements by class**
+**interface implements by class**
 
 >> class One implements Two{
       //.......
