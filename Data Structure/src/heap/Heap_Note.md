@@ -26,13 +26,13 @@ The same property must be recursively true for all sub-trees in that Binary Tree
 
 **To reduce time complexities in add/remove and get**
 
-*ADD  == > O(log n)
+* ADD  == > O(log n)
 
-*REMOVE ==>  O(log n)
+* REMOVE ==>  O(log n)
 
-*GET  ==>  O(1)
+* GET  ==>  O(1)
 
 **Note**
 
-*For min heap it must fallow the rule of min priority of root node and must be a complete binary tree.
+* For min heap it must fallow the rule of min priority of root node and must be a complete binary tree.
 
