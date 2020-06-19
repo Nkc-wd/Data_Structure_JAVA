@@ -1,4 +1,4 @@
-** What is Set in java ? **
+**What is Set in java ?**
 
 >> Set is an interface which extends Collection.
 
@@ -13,7 +13,7 @@
 Set<String> hash_Set = new HashSet<String>(); 
 
 
-** HashMap**
+**HashMap**
 
 Java HashMap class implements the Map interface which allows us to store key and value pair, where keys should be unique.
 
@@ -23,7 +23,7 @@ It is easy to perform operations using the key index like updation,
 
  deletion, etc. HashMap class is found in the java.util package.
 
-* It inherits the AbstractMap class and implements the Map interface.*
+* It inherits the AbstractMap class and implements the Map interface.
 
 Java HashMap contains values based on the key.
 
