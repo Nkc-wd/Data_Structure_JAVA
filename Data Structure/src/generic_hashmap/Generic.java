@@ -1,5 +1,5 @@
 package generic_hashmap;
-
+ 
 import java.util.ArrayList;
 
 public class Generic {

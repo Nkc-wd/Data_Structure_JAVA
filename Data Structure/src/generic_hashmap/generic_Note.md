@@ -1,5 +1,5 @@
 In collections we always need of type casting.
-
+  
 To make code optimize and solve of type casting Generic is very important.
 
 **simply generic initialize by **<Type>** 
