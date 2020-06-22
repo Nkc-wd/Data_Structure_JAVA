@@ -23,7 +23,7 @@ and ensures that **each node is visited exactly once and no node is visited twic
 The Queue structure is use for BFS.
 
 
-<p style="text-align: center;"> ![alt text](https://res.cloudinary.com/nkcloud/image/upload/v1592799843/graph_f6g7da.png) </p>
+ ![alt text](https://res.cloudinary.com/nkcloud/image/upload/v1592799843/graph_f6g7da.png)
 
 Node : A  B  C  D  E  F  G
 
