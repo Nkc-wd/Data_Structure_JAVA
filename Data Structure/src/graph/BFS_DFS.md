@@ -23,12 +23,13 @@ and ensures that **each node is visited exactly once and no node is visited twic
 The Queue structure is use for BFS.
 
 
- ![alt text](https://res.cloudinary.com/nkcloud/image/upload/v1592799843/graph_f6g7da.png)
+ <p align="center"> ![alt text](https://res.cloudinary.com/nkcloud/image/upload/v1592799843/graph_f6g7da.png) </p>
 
 Node : A  B  C  D  E  F  G
 
 Path: A AB AD  ABC ADE ADEF ADEG
 
 HashMap: A  B  C  D  E  F  G  H
+
 
 
