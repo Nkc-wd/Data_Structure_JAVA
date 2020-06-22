@@ -3,6 +3,8 @@ package graph;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import generic_hashmap.LinkedList;
+
 public class Graph {
 	
 	private class Vertex{  // for vertices
@@ -96,8 +98,9 @@ public class Graph {
 		
 		// let vertex's given by user not exist and second vertex is not in nbrs then must return false
 		
-		if(vtx1==null || vtx2==null || vtx1.nbrs.containsKey(vname2)) {
-				return;  // if not present then return 
+		if(vtx1==null || vtx2==null || vtx1.nbrs.containsKey(vname2)) { // if vtx1 nbrs already contains vname2
+			                                            // it means there is already edge
+				return;  // then no need to add edge bw them simply return 
 		}
 		
 		// else valid then
@@ -138,8 +141,102 @@ public class Graph {
 
 	}	
 	
-}
+	public boolean hasPath(String vname1,String vname2,HashMap<String,Boolean> processed) {
+		
+		// Here processed HM is use for if once A note visited not go for second time
+		// otherwise recursion work infinte time
+		
+		if(ContainsEdge(vname1,vname2)) {  // it will simply check there is direct edge present or not
+			return true;
+		}
+		
+		// Store in HM as vname1 as key with true value
+		processed.put(vname1, true);
+		
+		Vertex vtx=vtces.get(vname1);
+		ArrayList<String> nbrs=new ArrayList<>(vtx.nbrs.keySet()); // vtx address's nbr vertx contains nbrs ARL
+	for(String nbr:nbrs) {
+		if(!processed.containsKey(nbr)&& hasPath(nbr,vname2,processed)) { // check if nbr key not present in procesed HM then give true
+			return true;
+		}
+	}
+	
+	return false;  // if not find at all then false
+	
+	}
+	
+	private class Pair{   // A private Pair class 
+		
+		String vname;    // string as vertex
+		String psf;        // string path so far
+	}
+	
+	// the bfs will be boolean type method that output will tell there is path or not as searching
+	public boolean bfs (String src ,String dst) throws Exception {
+		HashMap<String, Boolean> processed = new HashMap<>(); // HM for visit only node once 
 
+		LinkedList<Pair> queue = new LinkedList<>(); // Here we take queue as doubly generic linked list as 
+		
+		// create a new pair
+		Pair sp=new Pair(); // starting pair
+		sp.vname=src;  // Starting pair's node is source
+		sp.psf=src; //  Starting pair's path so far is source
+		
+		// put the last new pair in queue
+		
+		queue.addLast(sp);
+		
+		// while queue is not empty keep on doing the work
+		while(!queue.isEmpty()) {
+			
+			// remove a pair from queue
+			Pair rp=queue.removeFirst();  // remove pair
+			
+			
+			// if a vertex already in HM then continue for next iteration
+			if(processed.containsKey(rp.vname)) {
+				continue;
+			}
+			
+			// put in proceeses HM
+			processed.put(rp.vname, true);
+			
+			// direct edge
+			
+			if(ContainsEdge(rp.vname,dst)) { // if there is direct edge means path bw remove pair and dst then return true 
+				return true;
+			}
+			
+			
+			// if not direct edge then explore nbrs
+			Vertex rpvtx=vtces.get(rp.vname); // remove pair vertex
+			ArrayList<String> nbrs=new ArrayList<>(rpvtx.nbrs.keySet()); // store the vertex in nbrs ARL
+			
+			for(String nbr:nbrs) { // loop in nbrs
+				
+				// process only unprocessed nbrs
+				if(!processed.containsKey(nbr)) {  //if nbr not in processed HM 
+				                                   // then only it will avoid to traverse each node from second time	
+					
+					// make a new pair of nbr and put in queue
+					Pair np=new Pair();
+					np.vname=nbr;  // new pair's vertex is currently nbr (in loop nbr will change)
+					np.psf=rp.psf+nbr;   // new pair's path so far = remove pair's pasf+ currently nbr
+					
+					// After all add this new pair in queue(as LL) atLast
+					queue.addLast(np);
+				}
+				
+			}
+		}
+		
+		// if not contains edge or search found
+		return false;
+		
+	}
+	
+	
+}
 
 
 

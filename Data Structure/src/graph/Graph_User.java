@@ -1,8 +1,10 @@
 package graph;
 
+import java.util.HashMap;
+
 public class Graph_User {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		Graph graph = new Graph();
 		graph.addVertex("A");
@@ -24,6 +26,12 @@ public class Graph_User {
 		graph.display();
 		 System.out.println(graph.numVertex());
 				 System.out.println(graph.numEdges());
+				 
+	
+	 System.out.println(graph.hasPath("A", "G", new HashMap<>()));
+	 System.out.println(graph.bfs("A", "F"));
+	 
+	 
 	}
 
 }
