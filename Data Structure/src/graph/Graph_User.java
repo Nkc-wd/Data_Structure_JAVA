@@ -24,13 +24,28 @@ public class Graph_User {
 		graph.addEdge("F", "G", 4);
 
 		graph.display();
-		 System.out.println(graph.numVertex());
-				 System.out.println(graph.numEdges());
+		 System.out.println("No. of vertices in given Graph: "+graph.numVertex());
+				 System.out.println("No. of Edges in given Graph: "+graph.numEdges());
 				 
 	
-	 System.out.println(graph.hasPath("A", "G", new HashMap<>()));
-	 System.out.println(graph.bfs("A", "F"));
-	 
+	 System.out.println("Has Path between given Node: "+graph.hasPath("A", "G", new HashMap<>()));
+	 System.out.println("BFS of given node: "+graph.bfs("A", "F"));
+	 System.out.println("DFS of given node: "+graph.dfs("A", "X"));
+	 System.out.println();
+	 graph.bft();
+	 System.out.println();
+	 graph.dft();
+	 System.out.println();
+	 graph.removeEdge("B","C");
+	 graph.removeEdge("F","G");
+	 System.out.println("Is Given Graph is cyclic: "+ graph.isCyclic());
+	 System.out.println();
+	 System.out.println("Is Given Graph is Connected: "+graph.isConnected());
+	 System.out.println();
+	 System.out.println("Is Given graph is a Tree: "+graph.isTree());
+	 System.out.println();
+	 graph.removeEdge("D","E");
+	 System.out.println("The Connected component in given graph is: "+graph.getCC());
 	 
 	}
 

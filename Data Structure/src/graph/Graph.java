@@ -165,11 +165,17 @@ public class Graph {
 	
 	}
 	
+	
+	
 	private class Pair{   // A private Pair class 
 		
 		String vname;    // string as vertex
 		String psf;        // string path so far
 	}
+	
+	
+	
+	
 	
 	// the bfs will be boolean type method that output will tell there is path or not as searching
 	public boolean bfs (String src ,String dst) throws Exception {
@@ -204,6 +210,7 @@ public class Graph {
 			// direct edge
 			
 			if(ContainsEdge(rp.vname,dst)) { // if there is direct edge means path bw remove pair and dst then return true 
+				System.out.println("The Shortest Path is: "+rp.psf + dst); // will give path bw src to dst as string
 				return true;
 			}
 			
@@ -234,8 +241,475 @@ public class Graph {
 		return false;
 		
 	}
+
 	
 	
+	// the dfs will be boolean type method that output will tell there is path or not as searching
+		public boolean dfs (String src ,String dst) throws Exception {
+			HashMap<String, Boolean> processed = new HashMap<>(); // HM for visit only node once 
+
+			LinkedList<Pair> stack = new LinkedList<>(); // Here we take stack as doubly generic linked list as 
+			
+
+			// create a new pair
+			Pair sp=new Pair(); // starting pair
+			sp.vname=src;  // Starting pair's node is source
+			sp.psf=src; //  Starting pair's path so far is source
+			
+			// put the last new pair in stack
+			
+			stack.addFirst(sp);
+			
+			// while stack is not empty keep on doing the work
+			while(!stack.isEmpty()) {
+				
+				// remove a pair from queue
+				Pair rp=stack.removeFirst();  // remove pair
+				
+				
+				// if a vertex already in HM then continue for next iteration
+				if(processed.containsKey(rp.vname)) {
+					continue;
+				}
+				
+				// put in proceeses HM
+				processed.put(rp.vname, true);
+				
+				// direct edge
+				
+				if(ContainsEdge(rp.vname,dst)) { // if there is direct edge means path bw remove pair and dst then return true 
+					System.out.println("Path is: "+rp.psf + dst); // will give path bw src to dst as string
+					return true;
+				}
+				
+				
+				// if not direct edge then explore nbrs
+				Vertex rpvtx=vtces.get(rp.vname); // remove pair vertex
+				ArrayList<String> nbrs=new ArrayList<>(rpvtx.nbrs.keySet()); // store the vertex in nbrs ARL
+				
+				for(String nbr:nbrs) { // loop in nbrs
+					
+					// process only unprocessed nbrs
+					if(!processed.containsKey(nbr)) {  //if nbr not in processed HM 
+					                                   // then only it will avoid to traverse each node from second time	
+						
+						// make a new pair of nbr and put in stack
+						Pair np=new Pair();
+						np.vname=nbr;  // new pair's vertex is currently nbr (in loop nbr will change)
+						np.psf=rp.psf+nbr;   // new pair's path so far = remove pair's pasf+ currently nbr
+						
+						// After all add this new pair in stack(as LL) atFirst
+						stack.addFirst(np);
+					}
+					
+				}
+			}
+			
+			// if not contains edge or search found
+			return false;
+			
+		}
+		
+		// the bft will be void type method that output will tell there is path or not as searching
+		public void bft () throws Exception {  // No source and dst vertex  it will trasverse in entire graph
+			
+			HashMap<String, Boolean> processed = new HashMap<>(); // HM for visit only node once 
+
+			LinkedList<Pair> queue = new LinkedList<>(); // Here we take queue as doubly generic linked list as 
+			ArrayList<String> keys=new ArrayList<>(vtces.keySet());
+			
+			// for every node repeat the process
+			for(String key:keys) {
+			
+				// If Graph is disconnected 
+				if(processed.containsKey(key)) {
+					continue;
+				}
+			
+			// create a new pair
+			Pair sp=new Pair(); // starting pair
+			sp.vname=key;  // Starting pair's node is source
+			sp.psf=key; //  Starting pair's path so far is source
+			
+			// put the last new pair in queue
+			
+			queue.addLast(sp);
+			
+			// while queue is not empty keep on doing the work
+			while(!queue.isEmpty()) {
+				
+				// remove a pair from queue
+				Pair rp=queue.removeFirst();  // remove pair
+				
+				
+				// if a vertex already in HM then continue for next iteration
+				if(processed.containsKey(rp.vname)) {
+					continue;
+				}
+				
+				// put in proceeses HM
+				processed.put(rp.vname, true);
+				
+				// syso
+				
+				System.out.println(rp.vname+" via "+rp.psf);
+				
+				
+				// if not direct edge then explore nbrs
+				Vertex rpvtx=vtces.get(rp.vname); // remove pair vertex
+				ArrayList<String> nbrs=new ArrayList<>(rpvtx.nbrs.keySet()); // store the vertex in nbrs ARL
+				
+				for(String nbr:nbrs) { // loop in nbrs
+					
+					// process only unprocessed nbrs
+					if(!processed.containsKey(nbr)) {  //if nbr not in processed HM 
+					                                   // then only it will avoid to traverse each node from second time	
+						
+						// make a new pair of nbr and put in queue
+						Pair np=new Pair();
+						np.vname=nbr;  // new pair's vertex is currently nbr (in loop nbr will change)
+						np.psf=rp.psf+nbr;   // new pair's path so far = remove pair's pasf+ currently nbr
+						
+						// After all add this new pair in queue(as LL) atLast
+						queue.addLast(np);
+					}
+					
+				}
+			}
+			
+			}
+			
+			
+		}
+
+		
+		// the dft will be void type method that output will tell there is path or not as searching
+				public void dft () throws Exception {  // No source and dst vertex  it will trasverse in entire graph
+					
+					HashMap<String, Boolean> processed = new HashMap<>(); // HM for visit only node once 
+
+					LinkedList<Pair> stack = new LinkedList<>(); // Here we take stack as doubly generic linked list as 
+					ArrayList<String> keys=new ArrayList<>(vtces.keySet());
+					
+					// for every node repeat the process
+					for(String key:keys) {
+					
+						// to avoid that which is already in HM
+						if(processed.containsKey(key)) {
+							continue;
+						}
+					
+					// create a new pair
+					Pair sp=new Pair(); // starting pair
+					sp.vname=key;  // Starting pair's node is source
+					sp.psf=key; //  Starting pair's path so far is source
+					
+					// put the last new pair in queue
+					
+					stack.addFirst(sp);
+					
+					// while stack is not empty keep on doing the work
+					while(!stack.isEmpty()) {
+						
+						// remove a pair from queue
+						Pair rp=stack.removeFirst();  // remove pair
+						
+						
+						// if a vertex already in HM then continue for next iteration
+						if(processed.containsKey(rp.vname)) {
+							continue;
+						}
+						
+						// put in proceeses HM
+						processed.put(rp.vname, true);
+						
+						// syso
+						
+						System.out.println(rp.vname+" via "+rp.psf);
+						
+						
+						// if not direct edge then explore nbrs
+						Vertex rpvtx=vtces.get(rp.vname); // remove pair vertex
+						ArrayList<String> nbrs=new ArrayList<>(rpvtx.nbrs.keySet()); // store the vertex in nbrs ARL
+						
+						for(String nbr:nbrs) { // loop in nbrs
+							
+							// process only unprocessed nbrs
+							if(!processed.containsKey(nbr)) {  //if nbr not in processed HM 
+							                                   // then only it will avoid to traverse each node from second time	
+								
+								// make a new pair of nbr and put in queue
+								Pair np=new Pair();
+								np.vname=nbr;  // new pair's vertex is currently nbr (in loop nbr will change)
+								np.psf=rp.psf+nbr;   // new pair's path so far = remove pair's pasf+ currently nbr
+								
+								// After all add this new pair in stack(as LL) atLast
+								stack.addFirst(np);
+							}
+							
+						}
+					}
+					
+					}
+					
+					
+				}
+
+
+				
+				// If there is any cyclic loop present in graph then Graph will be cyclic
+				
+				/* Logic in bft ,while loop if processed HashMap contains remove pair 
+				 * it means that remove is already in processed HashMap 
+				 * that means it is forming a cycle loop in graph, so
+				 * just return true otherwise after loop return false
+				
+				*/
+				
+				
+				
+				public boolean isCyclic () throws Exception {  // No source and dst vertex  it will trasverse in entire graph
+					
+					HashMap<String, Boolean> processed = new HashMap<>(); // HM for visit only node once 
+
+					LinkedList<Pair> queue = new LinkedList<>(); // Here we take queue as doubly generic linked list as 
+					ArrayList<String> keys=new ArrayList<>(vtces.keySet());
+					
+					// for every node repeat the process
+					for(String key:keys) {
+					
+						// If Graph is disconnected 
+						if(processed.containsKey(key)) {
+							continue;
+						}
+					
+					// create a new pair
+					Pair sp=new Pair(); // starting pair
+					sp.vname=key;  // Starting pair's node is source
+					sp.psf=key; //  Starting pair's path so far is source
+					
+					// put the last new pair in queue
+					
+					queue.addLast(sp);
+					
+					// while queue is not empty keep on doing the work
+					while(!queue.isEmpty()) {
+						
+						// remove a pair from queue
+						Pair rp=queue.removeFirst();  // remove pair
+						
+						
+						// if a vertex already in HM then continue for next iteration
+						if(processed.containsKey(rp.vname)) {
+							return true;
+						}
+						
+						// put in proceeses HM
+						processed.put(rp.vname, true);
+						
+						
+						// if not direct edge then explore nbrs
+						Vertex rpvtx=vtces.get(rp.vname); // remove pair vertex
+						ArrayList<String> nbrs=new ArrayList<>(rpvtx.nbrs.keySet()); // store the vertex in nbrs ARL
+						
+						for(String nbr:nbrs) { // loop in nbrs
+							
+							// process only unprocessed nbrs
+							if(!processed.containsKey(nbr)) {  //if nbr not in processed HM 
+							                                   // then only it will avoid to traverse each node from second time	
+								
+								// make a new pair of nbr and put in queue
+								Pair np=new Pair();
+								np.vname=nbr;  // new pair's vertex is currently nbr (in loop nbr will change)
+								np.psf=rp.psf+nbr;   // new pair's path so far = remove pair's pasf+ currently nbr
+								
+								// After all add this new pair in queue(as LL) atLast
+								queue.addLast(np);
+							}
+							
+						}
+					}
+					
+					}
+					
+					return false;
+				}
+	
+				
+				// isConnected that means entire graph is connected No Node is alone
+				
+				/* Logic
+				 * If Graph is disconnected then we must come 
+				 * 2 times in graph disconnected continue region 
+				 * so set a flag and count when it comes that region
+				 * if flag is >= 2 then graph is disconnected
+				 * means false for isConnected and true for flag <=2
+				 */
+				
+				public boolean isConnected() throws Exception {
+
+					int flag = 0;
+
+					HashMap<String, Boolean> processed = new HashMap<>();
+
+					LinkedList<Pair> queue = new LinkedList<>();
+
+					ArrayList<String> keys = new ArrayList<>(vtces.keySet());
+
+					// for every node repeat the process
+					for (String key : keys) {
+
+						if (processed.containsKey(key)) {
+							continue;
+						}
+
+						flag++;
+
+						// create a new pair
+						Pair sp = new Pair();
+						sp.vname = key;
+						sp.psf = key;
+
+						// put the new pair in queue
+						queue.addLast(sp);
+
+						// while queue is not empty keep on doing the work
+						while (!queue.isEmpty()) {
+
+							// remove a pair from queue
+							Pair rp = queue.removeFirst();
+
+							if (processed.containsKey(rp.vname)) {
+								continue;
+							}
+
+							// processed put
+							processed.put(rp.vname, true);
+
+							// nbrs
+							Vertex rpvtx = vtces.get(rp.vname);
+							ArrayList<String> nbrs = new ArrayList<>(rpvtx.nbrs.keySet());
+
+							// loop on nbrs
+							for (String nbr : nbrs) {
+
+								// process only unprocessed nbrs
+								if (!processed.containsKey(nbr)) {
+
+									// make a new pair of nbr and put in queue
+									Pair np = new Pair();
+									np.vname = nbr;
+									np.psf = rp.psf + nbr;
+
+									queue.addLast(np);
+								}
+							}
+
+						}
+
+					}
+
+					if (flag >= 2) {
+						return false;
+					} else {
+						return true;
+					}
+
+				}
+				
+				
+				// isTree that means graph not be cyclic and must be Connected
+				/* Logic
+				 * Just check for not cyclic as !isCyclic and for Connected as isConnected
+				 */
+				
+				public boolean isTree() throws Exception {
+					return !isCyclic() && isConnected(); 
+				}
+
+				
+				//getCC that means get the Connected component of graph in a ArrayList
+				/* Logic
+				 * We will make a method of ArL return type that also contains a ArL
+				 * like ArrayList<ArrayList<String>>
+				 * and store the connected Node as in individual ArL of One ArL
+				 */
+				            // type
+				public ArrayList<ArrayList<String>> getCC() throws Exception {
+					
+                                       // ans ArL to store all individual ArL 
+					ArrayList<ArrayList<String>> ans = new ArrayList<>();
+
+					HashMap<String, Boolean> processed = new HashMap<>();
+
+					LinkedList<Pair> queue = new LinkedList<>();
+
+					ArrayList<String> keys = new ArrayList<>(vtces.keySet());
+
+					// for every node repeat the process
+					for (String key : keys) {
+
+						if (processed.containsKey(key)) {
+							continue;
+						}
+
+						// for new component create a new arrayList
+						ArrayList<String> subans = new ArrayList<>();
+
+						// create a new pair
+						Pair sp = new Pair();
+						sp.vname = key;
+						sp.psf = key;
+
+						// put the new pair in queue
+						queue.addLast(sp);
+
+						// while queue is not empty keep on doing the work
+						while (!queue.isEmpty()) {
+
+							// remove a pair from queue
+							Pair rp = queue.removeFirst();
+
+							if (processed.containsKey(rp.vname)) {
+								continue;
+							}
+
+							// processed put
+							processed.put(rp.vname, true);
+
+							// put in subans arraylist
+							subans.add(rp.vname);
+
+							// nbrs
+							Vertex rpvtx = vtces.get(rp.vname);
+							ArrayList<String> nbrs = new ArrayList<>(rpvtx.nbrs.keySet());
+
+							// loop on nbrs
+							for (String nbr : nbrs) {
+
+								// process only unprocessed nbrs
+								if (!processed.containsKey(nbr)) {
+
+									// make a new pair of nbr and put in queue
+									Pair np = new Pair();
+									np.vname = nbr;
+									np.psf = rp.psf + nbr;
+
+									queue.addLast(np);
+								}
+							}
+
+						}
+
+						// put subans in final ans
+						ans.add(subans);
+
+					}
+                               // After adding all suband ArL retun ans ArL
+					return ans;
+
+				}
+				
 }
 
 
