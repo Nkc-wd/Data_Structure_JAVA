@@ -92,6 +92,7 @@ public class HeapGeneric<T extends Comparable<T>> {
 		return t.compareTo(o);
 	}
 
+	// for this we initialized a map above
 	public void updatePriority(T pair) {
 
 		int index = map.get(pair);
