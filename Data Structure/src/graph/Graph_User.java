@@ -49,6 +49,9 @@ public class Graph_User {
 	 System.out.println();
 	 System.out.println("Graph's Prims display: ");
 	 graph.prims().display();
+	 System.out.println();
+	 System.out.println("Graph on dijkstra Algorithm: ");
+	 System.out.println(graph.dijkstra("A"));
 	 
 	}
 
