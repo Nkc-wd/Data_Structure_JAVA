@@ -15,13 +15,13 @@ public class Graph_User {
 		graph.addVertex("F");
 		graph.addVertex("G");
 		graph.addEdge("A", "B", 2);
-		graph.addEdge("A", "D", 5);
+		graph.addEdge("A", "D", 6);
 		graph.addEdge("B", "C", 3);
 		graph.addEdge("C", "D", 1);
 		graph.addEdge("D", "E", 8);
 		graph.addEdge("E", "F", 5);
-		graph.addEdge("E", "G", 6);
-		graph.addEdge("F", "G", 4);
+		graph.addEdge("E", "G", 7);
+		graph.addEdge("F", "G", 9);
 
 		graph.display();
 		 System.out.println("No. of vertices in given Graph: "+graph.numVertex());
@@ -44,8 +44,11 @@ public class Graph_User {
 	 System.out.println();
 	 System.out.println("Is Given graph is a Tree: "+graph.isTree());
 	 System.out.println();
-	 graph.removeEdge("D","E");
+//	 graph.removeEdge("D","E");
 	 System.out.println("The Connected component in given graph is: "+graph.getCC());
+	 System.out.println();
+	 System.out.println("Graph's Prims display: ");
+	 graph.prims().display();
 	 
 	}
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import generic_hashmap.LinkedList;
+import heap.HeapGeneric;
 
 public class Graph {
 
@@ -710,6 +711,101 @@ public class Graph {
 
 	}
 
+	
+	
+	// Pair for heap                              // bounds set
+	private class PrimsPair implements Comparable<PrimsPair> {
+		// Comparable is a interface in which we have to give body for interface method
+		
+		String vname;   // vertex
+		String acqvname;   // aquire vertex
+		int cost;		// cost
+		
+		// interface method
+		@Override
+		public int compareTo(PrimsPair o) {
+		  return o.cost-this.cost;  // other cost - this cost
+		}
+	}
+	
+	
+	public Graph prims() {
+		// we need make sapnning tree and return
+		// mst will be contains all property of Graph class
+		Graph mst =new Graph();
+		HashMap<String,PrimsPair> map=new HashMap<>();
+		
+		// we need implements Comparable for HeapGeneric
+		HeapGeneric<PrimsPair> heap = new HeapGeneric<>();
+		
+		// make a pair and put in heap and map 
+		for(String key:vtces.keySet()) {
+			 
+			// create a new pair
+			PrimsPair np=new PrimsPair();
+			np.vname=key;   // np's vertex
+			
+			np.acqvname=null; // np's Acquire vertex
+
+			np.cost=Integer.MAX_VALUE; // np's cost currently is oo
+			
+			heap.add(np);  // new pair added in heap
+			map.put(key, np);  // new pair with currently key puted in map
+			
+		}
+		 // till the heap is not empty keep on removing the pairs
+		while(!heap.isEmpty()) {
+			
+			// remove a pair
+			PrimsPair rp=heap.remove();  // from heap
+			map.remove(rp.vname); // from HM with use of remove pair's vertex as key
+		
+		     // add to mst
+			if(rp.acqvname==null) {
+				mst.addVertex(rp.vname);
+			}else {
+				mst.addVertex(rp.vname);
+				mst.addEdge(rp.vname,rp.acqvname, rp.cost);
+			}
+			
+			//nbrs
+			
+			for(String nbr:vtces.get(rp.vname).nbrs.keySet()) {
+				  
+				// work for nbrs which are in heap
+				if(map.containsKey(nbr)) {
+					
+					int oc=map.get(nbr).cost; // old cost
+					
+					int nc=vtces.get(rp.vname).nbrs.get(nbr); // new cost
+				
+					// update the pair only when nc < oc
+					if(nc<oc) {
+						PrimsPair gp=map.get(nbr); // get pair
+						gp.acqvname=rp.vname;
+						
+						gp.cost=nc;
+						
+						heap.updatePriority(gp);
+						
+					}
+				
+				
+				}
+			}
+		
+		}
+		
+		
+		return mst;
+		
+	}
+	
+	
+	
+	
+	
+	
 }
 
 
