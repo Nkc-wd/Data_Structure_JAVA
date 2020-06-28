@@ -36,3 +36,7 @@ The same property must be recursively true for all sub-trees in that Binary Tree
 
 * For min heap it must fallow the rule of min priority of root node and must be a complete binary tree.
 
+** Always fill heap tree from left to right**
+
+
+
